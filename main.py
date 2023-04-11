@@ -1,23 +1,24 @@
-import nltk
-# nltk.download('punkt')
-# nltk.download("stopwords")
-from nltk.corpus import stopwords # Text data
-from nltk.tokenize import word_tokenize
-from nltk.tokenize import sent_tokenize, word_tokenize
-from nltk.stem import PorterStemmer
-from nltk.tokenize import word_tokenize
-# nltk.download('omw-1.4')
-# nltk.download('wordnet')
-from nltk.stem import WordNetLemmatizer
-lemmatizer = WordNetLemmatizer()
-lemmatizer.lemmatize("scarves") # scarf
-from nltk.tokenize import RegexpTokenizer
+import PreProcessing
+import pandas as pd
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 
-example_string = """
-Muad'Dib learned rapidly because his first training was in how to learn.
-And the first lesson of all was the basic trust that he could learn.
-It's shocking to find how many people do not believe they can learn,
-and how many more believe learning to be difficult."""
+def load_data():
+    data = pd.read_csv("articles1.csv")
+    content = data['content']
+    title = data['title']
+    return content, title
 
-print(word_tokenize(example_string))
+
+contents, titles = load_data()
+
+# vectorizing using word count
+cv = CountVectorizer(stop_words="english")
+X = cv.fit_transform(contents)
+pd.DataFrame(X.toarray(), columns=cv.get_feature_names())
+
+# vectorizing using tf-idf
+cv_tfidf = TfidfVectorizer()
+X_tfidf = cv_tfidf.fit_transform(contents)
+pd.DataFrame(X_tfidf.toarray(), columns=cv_tfidf.get_feature_names())
