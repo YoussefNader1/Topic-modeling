@@ -26,7 +26,7 @@ print(enhanced_content[0])
 
 # vectorizing using tf-idf
 vectorizer = TfidfVectorizer(stop_words='english')
-X = vectorizer.fit_transform(contents)
+X = vectorizer.fit_transform(enhanced_content)
 # pd.DataFrame(X.toarray(), columns=vectorizer.get_feature_names())
 K = 20
 model = KMeans(n_clusters=K, init='k-means++', max_iter=100, n_init=1)
