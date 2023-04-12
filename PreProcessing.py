@@ -18,7 +18,7 @@ stop_words = set(stopwords.words("english"))
 stop_words.add('not')
 
 
-class PreProcessing:
+class EnhanceSentence:
 
     def __init__(self, data):
         self.data = data
