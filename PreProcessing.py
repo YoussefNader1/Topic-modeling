@@ -12,6 +12,7 @@ from nltk.tokenize import word_tokenize
 # nltk.download('wordnet')
 from nltk.stem import WordNetLemmatizer
 import string
+import csv
 
 lemmatizer = WordNetLemmatizer()
 lemmatizer.lemmatize("scarves")  # scarf
@@ -81,4 +82,11 @@ class EnhanceSentence:
             #     print(len(filtered_list))
             lines = ' '.join(lemmatized_words)
             content_list.append(lines)
+            headers = ["title", "content"]
+            OutPut_list = []
+            OutPut_list.append([self.data[0], content_list])
+            # with open("NLP", "w") as nlp:
+            #     student = csv.writer(nlp)
+            #     student.writerow(headers)
+            #     student.writerows(OutPut_list)
         return content_list
